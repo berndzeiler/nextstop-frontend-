@@ -1,0 +1,47 @@
+<div class="ui container">
+    <div class="ui grid">
+        <div class="eight wide column">
+            <h2 class="ui header">Routen</h2>
+        </div>
+        <div class="eight wide column right aligned">
+            <button class="ui secondary button" routerLink="/admin">
+                <i class="arrow left icon"></i>
+                Zurück zur Administration
+            </button>
+        </div>
+    </div>
+    <button class="ui primary button" routerLink="/admin/routes/add">Route hinzufügen</button>    
+
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th>Routennummer</th>
+          <th>Start - Endhaltestelle</th>
+          <th>Gültigkeitszeitraum</th>
+          <th>Tagesgültigkeit</th>
+          <th>Aktionen</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (route of routes; track route.routeNumber) {
+          <tr>
+            <td>{{ route.routeNumber }}</td>
+            <td>
+              @if (route.startStop != null && route.endStop != null) {
+                {{route.startStop.shortName + ' - ' + route.endStop.shortName}}
+              } 
+              @else {
+                <span class="ui grey text">Keine Haltestellen vorhanden</span>
+              }
+            </td>
+            <td>{{ route.validFrom | date:'dd.MM.yyyy' }} - {{ route.validUntil | date:'dd.MM.yyyy' }}</td>
+            <td>{{ getDailyValidityTranslation(route.dailyValidity) }}</td>
+            <td>
+              <button class="ui button" routerLink="/admin/routes/{{ route.routeNumber }}">Details</button>
+            </td>
+          </tr>
+        }
+      </tbody>      
+    </table>
+  </div>
+  

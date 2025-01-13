@@ -1,0 +1,25 @@
+<div class="ui container">
+    <h2 class="ui header">Route {{ route?.routeNumber }}</h2>
+
+    @if (route != null) {
+        <p>
+            <strong>Gültig von:</strong> {{ route.validFrom | date: 'dd.MM.yyyy' }} - {{ route.validUntil | date: 'dd.MM.yyyy' }}
+        </p>
+        <p>
+            <strong>Tagesgültigkeit:</strong> {{ getDailyValidityTranslation(route.dailyValidity) }}
+        </p>
+
+        <h3>Haltestellen</h3>
+        @if (routeStopsDetails && routeStopsDetails.stops && routeStopsDetails.stops.length > 0) {
+            <ul>
+                @for (stop of routeStopsDetails.stops; track stop.shortName) {
+                    <li>{{ formatTime(stop.departureTime) }} - {{ stop.shortName }}</li>
+                }
+            </ul>
+        } @else {
+            <p>Keine Haltestellen vorhanden.</p>
+        }  
+    }
+
+    <button class="ui button" routerLink="/admin/routes">Zurück zur Übersicht</button>
+</div>

@@ -1,0 +1,25 @@
+<!-- Top Bar with Logo and Login/Logout -->
+<div class="ui menu" style="border-bottom: none; box-shadow: none;">
+  <div class="item">
+    <img src="/logo.png" alt="NextStop Logo" style="height: 40px; width: 150px;">
+  </div>
+  <div class="right menu">
+    <div class="item">
+      @if (!isLoggedIn()) {
+        <button class="ui button" (click)="login()">Login</button>
+      } @else {
+        <button class="ui button" (click)="logout()">Logout</button>
+      }
+    </div>
+  </div>
+</div>
+
+<!-- Tabs Menu -->
+<div class="ui four item menu">
+  <a routerLink="trip-planner" routerLinkActive="active" class="item">Fahrplan</a>
+  <a routerLink="departures" routerLinkActive="active" class="item">Abfahrten</a>
+  <a routerLink="delay-statistics" routerLinkActive="active" class="item">Verspätungsstatistik</a>
+  <a routerLink="admin" routerLinkActive="active" class="item">Administration</a>
+</div>
+
+<router-outlet />

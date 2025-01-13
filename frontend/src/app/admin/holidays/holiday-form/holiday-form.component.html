@@ -1,0 +1,41 @@
+<div class="ui container">
+    <h2 class="ui header">{{ holidayId ? 'Feiertag bearbeiten' : 'Feiertag hinzufügen' }}</h2>
+    <form class="ui form" [formGroup]="holidayForm" wea5DateRangeValidator (ngSubmit)="saveHoliday()">
+        <div class="field">
+            <label>Bezeichnung</label>
+            <input formControlName="name" placeholder="Bezeichnung" required />
+            @if (errors['name']) {
+            <div class="ui negative message">
+                {{ errors['name'] }}
+            </div>
+            }
+        </div>
+
+        <div class="field">
+            <label>Startdatum</label>
+            <input formControlName="startDate" type="date" required />
+        </div>
+
+        <div class="field" [class.error]="holidayForm.get('endDate')?.invalid || errors['endDate']">
+            <label>Enddatum</label>
+            <input formControlName="endDate" type="date" required />
+            @if (errors['endDate']) {
+            <div class="ui negative message">
+                {{ errors['endDate'] }}
+            </div>
+            }
+        </div>
+
+        <div class="field">
+            <label>
+                <input formControlName="isSchoolHoliday" type="checkbox" />
+                Schulferien
+            </label>
+        </div>
+
+        <button class="ui primary button" type="submit" [disabled]="holidayForm.invalid">
+            {{ holidayId ? 'Speichern' : 'Hinzufügen' }}
+        </button>
+        <button class="ui button" type="button" (click)="cancel()">Abbrechen</button>
+    </form>
+</div>

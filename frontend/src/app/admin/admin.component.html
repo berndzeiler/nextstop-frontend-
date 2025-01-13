@@ -1,0 +1,53 @@
+<div class="ui container">
+    @if (!isChildRouteActive) {
+        <h2 class="ui header">Administration</h2>
+        <div class="ui three column grid">
+            <!-- Holidays -->
+            <div class="column">
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">Feiertage/Schulferien</div>
+                        <div class="description">
+                            Verwalten Sie Feiertage und Schulferien, um den Fahrplan anzupassen.
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <a routerLink="/admin/holidays" class="ui primary button">Verwalten</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stops -->
+            <div class="column">
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">Haltestellen</div>
+                        <div class="description">
+                            Verwalten Sie die Haltestellen und deren Details.
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <a routerLink="/admin/stops" class="ui primary button">Verwalten</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Routes -->
+            <div class="column">
+                <div class="ui card">
+                    <div class="content">
+                        <div class="header">Routen</div>
+                        <div class="description">
+                            Verwalten Sie die Routen und Verbindungen zwischen Haltestellen.
+                        </div>
+                    </div>
+                    <div class="extra content">
+                        <a routerLink="/admin/routes" class="ui primary button">Verwalten</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <router-outlet />
+</div>

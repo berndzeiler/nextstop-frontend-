@@ -1,0 +1,41 @@
+<div class="ui container">
+    <div class="ui grid">
+        <div class="eight wide column">
+            <h2 class="ui header">Haltestellen</h2>
+        </div>
+        <div class="eight wide column right aligned">
+            <button class="ui secondary button" routerLink="/admin">
+                <i class="arrow left icon"></i>
+                Zurück zur Administration
+            </button>
+        </div>
+    </div>
+    <button class="ui primary button" routerLink="/admin/stops/add">Haltestelle hinzufügen</button>
+  
+    <table class="ui celled table">
+      <thead>
+        <tr>
+          <th>Bezeichnung</th>
+          <th>Kurzbezeichnung</th>
+          <th>GPS-Breitengrad</th>
+          <th>GPS-Längengrad</th>
+          <th>Aktionen</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (stop of stops; track stop.shortName) {
+          <tr>
+            <td>{{ stop.name }}</td>
+            <td>{{ stop.shortName }}</td>
+            <td>{{ stop.latitude }}</td>
+            <td>{{ stop.longitude }}</td>
+            <td>
+              <button class="ui button" (click)="editStop(stop.shortName)">Bearbeiten</button>
+              <button class="ui red button" (click)="deleteStop(stop.shortName)">Löschen</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  

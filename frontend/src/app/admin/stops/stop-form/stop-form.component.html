@@ -1,0 +1,50 @@
+<div class="ui container">
+    <h2 class="ui header">{{ shortName ? 'Haltestelle bearbeiten' : 'Haltestelle hinzufügen' }}</h2>
+    <form class="ui form" [formGroup]="stopForm" (ngSubmit)="saveStop()">
+      <div class="field">
+        <label>Bezeichnung</label>
+        <input name="name" formControlName="name" placeholder="Bezeichnung" required />
+        @if (errors['name']) {
+            <div class="ui negative message">
+                {{ errors['name'] }}
+            </div>
+        }
+      </div>
+  
+      <div class="field">
+        <label>Kurzbezeichnung</label>
+        <input name="shortName" formControlName="shortName" placeholder="Kurzbezeichnung" required [disabled]="stopForm.get('shortName')?.disabled ?? false" />
+        @if (errors['shortName']) {
+            <div class="ui negative message">
+                {{ errors['shortName'] }}
+            </div>
+        }
+      </div>
+  
+      <div class="field">
+        <label>Breitengrad</label>
+        <input name="latitude" formControlName="latitude" type="text" placeholder="Breitengrad" required />
+        @if (errors['latitude']) {
+            <div class="ui negative message">
+                {{ errors['latitude'] }}
+            </div>
+        }
+      </div>
+  
+      <div class="field">
+        <label>Längengrad</label>
+        <input name="longitude" formControlName="longitude" type="text" placeholder="Längengrad" required />
+        @if (errors['longitude']) {
+            <div class="ui negative message">
+                {{ errors['longitude'] }}
+            </div>
+        }
+      </div>
+  
+      <button class="ui primary button" type="submit" [disabled]="stopForm.invalid">
+        {{ shortName ? 'Speichern' : 'Hinzufügen' }}
+      </button>
+      <button class="ui button" type="button" (click)="cancel()">Abbrechen</button>
+    </form>
+  </div>
+  

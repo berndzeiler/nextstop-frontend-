@@ -1,0 +1,25 @@
+<div class="ui search" [ngClass]="{ loading: isLoading }">
+    <div class="ui icon input">
+      <input (keyup)="onSearchTermChange($event)" #searchTerm class="prompt" type="text" placeholder="Suche Haltestellen..." />
+      <i class="search icon"></i>
+    </div>
+    
+    @if (foundStops.length > 0) {
+      <div class="results transition" [ngClass]="{ visible: foundStops.length }">
+        @for (stop of foundStops; track stop.shortName) {
+          <div (click)="selectStop(stop)" class="result">
+            <div class="content">
+              <div class="title">{{ stop.name }} ({{stop.shortName}})</div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  
+    @if (foundStops.length === 0 && !isLoading && hasSearched) {
+      <div class="ui message">
+        Keine Haltestellen gefunden.
+      </div>
+    }
+</div>
+  

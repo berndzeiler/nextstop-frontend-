@@ -1,0 +1,88 @@
+<div class="ui container">
+    <h2 class="ui header">{{ 'Route mit Haltestellen hinzufügen' }}</h2>
+
+    <form class="ui form" [formGroup]="routeForm" (ngSubmit)="saveRoute()">
+        <div class="ui segment">
+            <h3 class="ui dividing header">Routeninformationen</h3>
+
+            <div class="field">
+                <label>Gültig ab</label>
+                <input formControlName="startDate" type="date" required />
+            </div>
+
+            <div class="field" [class.error]="routeForm.get('endDate')?.invalid || errors['endDate']">
+                <label>Gültig bis</label>
+                <input formControlName="endDate" type="date" required />
+                @if (errors['endDate']) {
+                <div class="ui negative message">
+                    {{ errors['endDate'] }}
+                </div>
+                }
+            </div>
+
+            <div class="field">
+                <label>Tagesgültigkeit</label>
+                <select formControlName="dailyValidity">
+                    @for (option of dailyValidityOptions; track option[0]) {
+                    <option [value]="option[0]">{{ option[1] }}</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="ui segment">
+            <h3 class="ui dividing header">Haltestelleninformationen</h3>
+
+            <div class="ui grid">
+                <div class="four wide column">
+                    <label>Haltestelle</label>
+                    <wea5-stop-search (stopSelected)="addStopFromSearch($event)"></wea5-stop-search>
+                </div>
+              
+                <div class="four wide column">
+                    <label>Abfahrtszeit</label>
+                    <input formControlName="departureTime" type="time" class="ui input" />
+                </div>
+            </div>
+              
+            @if (errors['stops']) {
+                <div class="ui negative message">
+                    {{ errors['stops'] }}
+                </div>
+            }
+
+            @if (selectedStop) {
+                <div class="ui message">
+                    <strong>Augewählte Haltestelle:</strong> {{ selectedStop.name }} ({{ selectedStop.shortName }})
+                </div>
+            }
+              
+            <div class="ui grid">
+                <div class="four wide column">
+                    <button type="button" class="ui blue button" (click)="addStopToRoute()" 
+                        [disabled]="!selectedStop || !routeForm.get('departureTime')?.value">
+                        Haltestelle hinzufügen
+                    </button>
+                </div>
+            </div>
+
+            @if (sortedStops.length == 0) {
+                <p class="ui red header">Noch keine Haltestellen hinzugefügt</p>
+            } 
+            @else {    
+                <h3>Hinzugefügte Haltestellen</h3>     
+                <ul>
+                    @for (stop of sortedStops; track stop.shortName) {
+                        <li>
+                            {{ formatTime(stop.departureTime) }} - {{ stop.shortName }}
+                            <button type="button" class="ui red button" (click)="removeStop(sortedStops.indexOf(stop))">Entfernen</button>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+
+        <button class="ui primary button" type="submit" [disabled]="routeForm.invalid || sortedStops.length === 0">Speichern</button>
+        <button class="ui button" type="button" (click)="cancel()">Abbrechen</button>
+    </form>
+</div>
