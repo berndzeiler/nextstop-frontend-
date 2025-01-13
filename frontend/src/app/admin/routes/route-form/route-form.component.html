@@ -36,7 +36,7 @@
             <div class="ui grid">
                 <div class="four wide column">
                     <label>Haltestelle</label>
-                    <wea5-stop-search (stopSelected)="addStopFromSearch($event)"></wea5-stop-search>
+                    <wea5-stop-search (stopSelected)="addStopFromSearch($event)" />
                 </div>
               
                 <div class="four wide column">
@@ -51,11 +51,9 @@
                 </div>
             }
 
-            @if (selectedStop) {
-                <div class="ui message">
-                    <strong>Augewählte Haltestelle:</strong> {{ selectedStop.name }} ({{ selectedStop.shortName }})
-                </div>
-            }
+            <div class="ui margin-top-large margin-bottom-large">
+                <wea5-selected-stop-display [selectedStop]="selectedStop" />
+            </div>
               
             <div class="ui grid">
                 <div class="four wide column">
@@ -67,8 +65,14 @@
             </div>
 
             @if (sortedStops.length == 0) {
-                <p class="ui red header">Noch keine Haltestellen hinzugefügt</p>
-            } 
+                <div class="ui positive message">
+                    <i class="info circle icon"></i>
+                    <div class="content">
+                        <div class="header">Hinweis</div>
+                        <p>Noch keine Haltestellen hinzugefügt</p>
+                    </div>
+                </div>
+            }
             @else {    
                 <h3>Hinzugefügte Haltestellen</h3>     
                 <ul>
