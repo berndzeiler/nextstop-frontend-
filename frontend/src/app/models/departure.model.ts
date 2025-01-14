@@ -3,4 +3,4 @@ export interface Departure {
     routeName: string;    
     destination: string;  
     delayInMinutes: number; 
-  }
+}

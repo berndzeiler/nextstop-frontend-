@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray, FormsModule } from '@angular/forms';
 import { RoutesService } from '../../../services/routes.service';
 import { Route, DailyValidityTranslations, DailyValidity } from '../../../models/route.model';
-import { RouteConnectStop, RouteConnectStopForCreation } from '../../../models/routeconnectstop.model';
+import { RouteConnectStop, RouteConnectStopForCreation } from '../../../models/route-connect-stop.model';
 import { Stop } from '../../../models/stop.model';
 import { CommonModule } from '@angular/common';
 import { RouteFormErrorMessages } from '../../../helpers/error-message';

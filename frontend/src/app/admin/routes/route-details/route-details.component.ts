@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RoutesService } from '../../../services/routes.service';
 import { Route, DailyValidityTranslations } from '../../../models/route.model';
-import { RouteStopsDetails } from '../../../models/routeconnectstop.model';
+import { RouteStopsDetails } from '../../../models/route-connect-stop.model';
 import { CommonModule } from '@angular/common';
 import { forkJoin } from 'rxjs';
 

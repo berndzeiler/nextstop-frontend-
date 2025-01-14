@@ -42,3 +42,8 @@ export const DepartureFormErrorMessages = [
     new ErrorMessage('connections', 'required', 'Die Anzahl der Verbindungen ist erforderlich.'),
     new ErrorMessage('connections', 'min', 'Die Anzahl der Verbindungen muss mindestens 1 betragen.'),
 ];  
+
+export const DelayStatisticsFormErrorMessages = [
+    new ErrorMessage('startDate', 'required', 'Das Startdatum ist erforderlich.'),
+    new ErrorMessage('endDate', 'required', 'Das Enddatum ist erforderlich.'),
+];

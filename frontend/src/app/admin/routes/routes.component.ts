@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { forkJoin, map } from 'rxjs';
-import { RouteStopsDetails } from '../../models/routeconnectstop.model';
+import { RouteStopsDetails } from '../../models/route-connect-stop.model';
 
 @Component({
   selector: 'wea5-routes',

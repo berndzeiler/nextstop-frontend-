@@ -87,7 +87,10 @@
     @if (noDeparturesMessage) {
     <div class="ui positive message">
         <i class="info circle icon"></i>
-        <p>{{ noDeparturesMessage }}</p>
+        <div class="content">
+            <div class="header">Hinweis</div>
+            <p>{{ noDeparturesMessage }}</p>
+        </div>
     </div>
     }
 

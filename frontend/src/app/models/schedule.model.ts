@@ -6,5 +6,5 @@ export interface Schedule {
     arrivalTime: string;        
     delayInMinutes: number;    
     isDirectConnection: boolean; 
-  }
+}
   
