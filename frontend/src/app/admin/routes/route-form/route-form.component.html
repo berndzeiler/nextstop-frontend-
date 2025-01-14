@@ -7,16 +7,21 @@
 
             <div class="field">
                 <label>Gültig ab</label>
-                <input formControlName="startDate" type="date" required />
+                <input formControlName="startDate" type="date" />
+                @if (errors['startDate']) {
+                    <div class="ui pointing red basic label">
+                        {{ errors['startDate'] }}
+                    </div>
+                }
             </div>
 
-            <div class="field" [class.error]="routeForm.get('endDate')?.invalid || errors['endDate']">
+            <div class="field">
                 <label>Gültig bis</label>
-                <input formControlName="endDate" type="date" required />
+                <input formControlName="endDate" type="date" />
                 @if (errors['endDate']) {
-                <div class="ui negative message">
-                    {{ errors['endDate'] }}
-                </div>
+                    <div class="ui pointing red basic label">
+                        {{ errors['endDate'] }}
+                    </div>
                 }
             </div>
 
@@ -46,7 +51,7 @@
             </div>
               
             @if (errors['stops']) {
-                <div class="ui negative message">
+                <div class="ui pointing red basic label">
                     {{ errors['stops'] }}
                 </div>
             }

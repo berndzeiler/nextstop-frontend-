@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Stop } from '../models/stop';
+import { Stop } from '../models/stop.model';
 import { catchError, Observable, of } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';
 
@@ -33,23 +33,9 @@ export class StopsService {
       .pipe(catchError(this.errorHandler));
   }
 
-   // This method handles searching stops by name or coordinates
-   searchStops(searchTerm?: string, latitude?: number, longitude?: number): Observable<Stop[]> {
-    // Construct URL with optional query parameters
-    let url = `${environment.server}/stops/search?`;
-
-    if (searchTerm) {
-      url += `searchTerm=${searchTerm}&`;
-    }
-
-    if (latitude && longitude) {
-      url += `latitude=${latitude}&longitude=${longitude}&`;
-    }
-
-    // Remove trailing '&' if present
-    url = url.replace(/&$/, '');
-
-    return this.http.get<Stop[]>(url).pipe(catchError(this.errorHandler));
+   searchStops(searchTerm?: string): Observable<Stop[]> {
+    return this.http.get<Stop[]>(`${environment.server}/stops/search?searchTerm=${searchTerm}`)
+      .pipe(catchError(this.errorHandler));
   }
 
   isShortNameUnique(shortName: string): Observable<boolean> {

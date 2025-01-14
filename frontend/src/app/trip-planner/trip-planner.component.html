@@ -1,1 +1,141 @@
-<p>trip-planner works!</p>
+<div class="ui container">
+    <h2 class="ui header">Verbindung suchen</h2>
+
+    <form class="ui form" [formGroup]="tripForm" (ngSubmit)="searchSchedules()">
+        <div class="field">
+            <label>Start-Haltestelle</label>
+            <wea5-stop-search (stopSelected)="onStopSelected('startStop', $event)" />
+            <wea5-selected-stop-display [selectedStop]="selectedStartStop" />
+        </div>
+
+        <div class="field">
+            <label>Ziel-Haltestelle</label>
+            <wea5-stop-search (stopSelected)="onStopSelected('endStop', $event)" />
+            <wea5-selected-stop-display [selectedStop]="selectedEndStop" />
+            @if (errors['endStop']) {
+                <div class="ui pointing red basic label">
+                  {{ errors['endStop'] }}
+                </div>
+            }
+        </div>
+
+        <div class="two fields">
+            <div class="field">
+                <label>Datum</label>
+                <input type="date" formControlName="date" />
+                @if (errors['date']) {
+                    <div class="ui pointing red basic label">
+                      {{ errors['date'] }}
+                    </div>
+                }
+            </div>
+            <div class="field">
+                <label>Uhrzeit</label>
+                <input type="time" formControlName="time" />
+                @if (errors['time']) {
+                    <div class="ui pointing red basic label">
+                      {{ errors['time'] }}
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="field">
+            <div class="ui toggle checkbox">
+                <input type="checkbox" formControlName="isArrival" />
+                <label>Nach Ankunftszeit suchen</label>
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Anzahl der Verbindungen</label>
+            <input type="number" formControlName="connections" min="1" />
+            @if (errors['connections']) {
+                <div class="ui pointing red basic label">
+                  {{ errors['connections'] }}
+                </div>
+            }
+        </div>
+
+        <button class="ui primary button" type="submit" [disabled]="tripForm.invalid || isLoading">Suchen</button>
+    </form>
+    <div class="ui divider"></div>
+
+    <div class="ui container">
+        @if (schedules.length > 0) {
+        <h2 class="ui header">Gefundene Verbindungen</h2>
+
+        <div class="ui segment">
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th>Route</th>
+                        <th>Abfahrt</th>
+                        <th>Ankunft</th>
+                        <th>Umstiege</th>
+                        <th>Verspätung</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (schedule of schedules; track schedule.departureTime) {
+                    <tr>
+                        <td>
+                            <div class="ui label blue">
+                                {{ schedule.routeName }}
+                            </div>
+                        </td>
+                        <td>
+                            <strong>{{ formatTime(schedule.departureTime) }}</strong>
+                            @if (schedule.delayInMinutes > 0) {
+                                <span style="color: red;">
+                                    ({{ formatTimeWithDelay(schedule.departureTime, schedule.delayInMinutes) }})
+                                </span>
+                            }
+                            <div class="sub header">{{ selectedStartStop?.name || schedule.startStopShortName }}</div>
+                        </td>
+                        <td>
+                            <strong>{{ formatTime(schedule.arrivalTime) }}</strong>
+                            @if (schedule.delayInMinutes > 0) {
+                                <span style="color: red;">
+                                    ({{ formatTimeWithDelay(schedule.arrivalTime, schedule.delayInMinutes) }})
+                                </span>
+                            }
+                            <div class="sub header">{{ selectedEndStop?.name || schedule.endStopShortName }}</div>
+                        </td>
+                        <td>
+                            <i class="{{ schedule.isDirectConnection ? 'check' : 'exchange' }} icon"></i>
+                            {{ schedule.isDirectConnection ? 'Direkt' : '1 Umstieg' }}
+                        </td>
+                        <td>
+                            <i class="clock outline icon"></i>
+                            {{ schedule.delayInMinutes > 0 ? '+' + schedule.delayInMinutes + ' Min' : 'Pünktlich' }}
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        }
+
+        @if (noConnectionsMessage) {
+        <div class="ui positive message">
+            <i class="info circle icon"></i>
+            <div class="content">
+                <div class="header">Hinweis</div>
+                <p>{{ noConnectionsMessage }}</p>
+            </div>
+        </div>
+        }
+
+        @if (errorMessage) {
+        <div class="ui negative message">
+            <div class="header">Fehler</div>
+            <p>{{ errorMessage }}</p>
+        </div>
+        }
+
+        @if (isLoading) {
+        <div class="ui active inline loader"></div>
+        }
+    </div>
+</div>

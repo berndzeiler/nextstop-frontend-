@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { authConfig } from '../auth.config';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,22 @@ export class AuthenticationService {
 
   private configureWithNewConfigApi(): void {
     this.oauthService.configure(authConfig);
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+  }
+
+  loadAuthState(): Observable<boolean> {
+    return new Observable<boolean>((observer) => {
+      this.oauthService
+        .loadDiscoveryDocumentAndTryLogin()
+        .then(() => {
+          observer.next(this.isLoggedIn());
+          observer.complete();
+        })
+        .catch((error) => {
+          console.error('Error loading auth state:', error);
+          observer.next(false);
+          observer.complete();
+        });
+    });
   }
 
   login(): void {
@@ -24,7 +40,9 @@ export class AuthenticationService {
   }
 
   logout(): void {
-    this.oauthService.logOut();
+    const currentUrl = window.location.pathname + window.location.search; 
+    this.oauthService.logOut(); 
+    window.location.href = currentUrl; 
   }
 
   isLoggedIn(): boolean {

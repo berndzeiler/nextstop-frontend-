@@ -21,6 +21,6 @@ export class LoginComponent {
   }
 
   login() {
-    this.auth.login(); // Startet den Keycloak Login-Flow
+    this.auth.login(); 
   }
 }

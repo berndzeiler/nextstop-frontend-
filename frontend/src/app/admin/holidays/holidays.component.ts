@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HolidaysService } from '../../services/holidays.service';
-import { Holiday } from '../../models/holiday';
+import { Holiday } from '../../models/holiday.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';

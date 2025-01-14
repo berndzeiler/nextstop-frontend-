@@ -2,13 +2,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray, FormsModule } from '@angular/forms';
 import { RoutesService } from '../../../services/routes.service';
-import { Route, DailyValidityTranslations, DailyValidity } from '../../../models/route';
-import { RouteConnectStop, RouteConnectStopForCreation } from '../../../models/routeconnectstop';
-import { Stop } from '../../../models/stop';
+import { Route, DailyValidityTranslations, DailyValidity } from '../../../models/route.model';
+import { RouteConnectStop, RouteConnectStopForCreation } from '../../../models/routeconnectstop.model';
+import { Stop } from '../../../models/stop.model';
 import { CommonModule } from '@angular/common';
 import { RouteFormErrorMessages } from '../../../helpers/error-message';
-import { StopSearchComponent } from '../../stops/stop-search/stop-search.component';
+import { StopSearchComponent } from '../../../stop-search/stop-search.component';
 import { dateRangeValidator } from '../../../helpers/validators/date-range-validator.directive';
+import { SelectedStopDisplayComponent } from '../../../stop-search/selected-stop-display/selected-stop-display.component';
 
 @Component({
   selector: 'wea5-holiday-form',
@@ -17,6 +18,7 @@ import { dateRangeValidator } from '../../../helpers/validators/date-range-valid
     CommonModule,
     ReactiveFormsModule,
     StopSearchComponent,
+    SelectedStopDisplayComponent,
     FormsModule
   ],
   templateUrl: './route-form.component.html',
@@ -79,17 +81,7 @@ export class RouteFormComponent implements OnInit {
         (stop) => stop.shortName === this.selectedStop?.shortName
       );
       if (isDuplicate) {
-        this.errors['stops'] = RouteFormErrorMessages.find(
-          (err) => err.forControl === 'stops' && err.forValidator === 'duplicateStop'
-        )?.text || 'This stop is already added.';
-        return;
-      }
-
-      if (isDuplicate) {
-        // Set duplicate stop error
-        this.errors['stops'] = RouteFormErrorMessages.find(
-          (err) => err.forControl === 'stops' && err.forValidator === 'duplicateStop'
-        )?.text || 'This stop is already added.';
+        this.errors['stops'] = 'Diese Haltestelle wurde bereits hinzugefügt.';
         return;
       }
 
@@ -129,7 +121,6 @@ export class RouteFormComponent implements OnInit {
       });
     }
   }
-
 
   // Helper method
   createRouteWithStopsPayload(routeData: {
@@ -175,7 +166,7 @@ export class RouteFormComponent implements OnInit {
       }
     }
 
-    // Custom logic for date validation
+    // Custom validation for start-/enddate
     const startDate = this.routeForm.get('startDate')?.value;
     const endDate = this.routeForm.get('endDate')?.value;
 

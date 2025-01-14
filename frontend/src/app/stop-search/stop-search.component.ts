@@ -1,6 +1,6 @@
 import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
-import { StopsService } from '../../../services/stops.service';
-import { Stop } from '../../../models/stop';
+import { StopsService } from '../services/stops.service';
+import { Stop } from '../models/stop.model';
 import { debounceTime, distinctUntilChanged, filter, switchMap, tap } from 'rxjs';
 import { NgClass } from '@angular/common';
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HolidaysService } from '../../../services/holidays.service';
-import { Holiday } from '../../../models/holiday';
+import { Holiday } from '../../../models/holiday.model';
 import { CommonModule } from '@angular/common';
 import { HolidayFormErrorMessages } from '../../../helpers/error-message';
 import { dateRangeValidator } from '../../../helpers/validators/date-range-validator.directive';
@@ -27,7 +27,7 @@ export class HolidayFormComponent implements OnInit {
     private holidaysService: HolidaysService,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.holidayForm = this.fb.group(
@@ -39,16 +39,16 @@ export class HolidayFormComponent implements OnInit {
       },
       { validators: dateRangeValidator() }
     );
-  
+
     this.holidayForm.statusChanges.subscribe(() => this.updateErrorMessages());
-  
+
     this.holidayForm.get('startDate')?.valueChanges.subscribe((startDate) => {
       const endDateControl = this.holidayForm.get('endDate');
       if (startDate && !endDateControl?.value) {
         endDateControl?.setValue(startDate); // Automatically set endDate
       }
     });
-  
+
     const holidayId = this.route.snapshot.paramMap.get('id');
     if (holidayId) {
       this.holidayId = +holidayId;
@@ -103,12 +103,12 @@ export class HolidayFormComponent implements OnInit {
       }
     }
 
-    // Custom logic for date validation
+    // Custom validation for start-/enddate
     const startDate = this.holidayForm.get('startDate')?.value;
     const endDate = this.holidayForm.get('endDate')?.value;
 
     if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
-        this.errors['endDate'] = 'Enddatum muss nach dem Startdatum liegen.';
+      this.errors['endDate'] = 'Enddatum muss nach dem Startdatum liegen.';
     }
   }
 }

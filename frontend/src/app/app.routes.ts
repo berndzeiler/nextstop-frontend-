@@ -21,7 +21,7 @@ export const routes: Routes = [
     },
     {
         path: 'index.html',
-        redirectTo: 'trip-planner',
+        redirectTo: 'admin',
         pathMatch: 'full'
     },
     {

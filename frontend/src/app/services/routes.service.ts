@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { DailyValidity, Route } from '../models/route';
-import { RouteConnectStop, RouteConnectStopForCreation, RouteStopsDetails } from '../models/routeconnectstop';
+import { Route } from '../models/route.model';
+import { RouteConnectStopForCreation, RouteStopsDetails } from '../models/routeconnectstop.model';
 import { catchError, Observable, of } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';
 

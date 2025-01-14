@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { Holiday } from '../models/holiday';
+import { Holiday } from '../models/holiday.model';
 import { catchError, Observable, of } from 'rxjs';
 import { OAuthService } from 'angular-oauth2-oidc';
 

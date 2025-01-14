@@ -1,1 +1,104 @@
-<p>departures works!</p>
+<div class="ui container">
+    <h2 class="ui header">Abfahrten anzeigen</h2>
+
+    <form class="ui form" [formGroup]="departureForm" (ngSubmit)="searchDepartures()">
+        <div class="field">
+            <label>Haltestelle</label>
+            <wea5-stop-search (stopSelected)="onStopSelected($event)" />
+            <wea5-selected-stop-display [selectedStop]="selectedStop" />
+        </div>
+
+        <div class="two fields">
+            <div class="field">
+                <label>Datum</label>
+                <input type="date" formControlName="date" />
+                @if (errors['date']) {
+                    <div class="ui pointing red basic label">
+                      {{ errors['date'] }}
+                    </div>
+                }
+            </div>
+            <div class="field">
+                <label>Uhrzeit</label>
+                <input type="time" formControlName="time" />
+                @if (errors['time']) {
+                    <div class="ui pointing red basic label">
+                      {{ errors['time'] }}
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="field">
+            <label>Anzahl der Verbindungen</label>
+            <input type="number" formControlName="connections" min="1" />
+            @if (errors['connections']) {
+                <div class="ui pointing red basic label">
+                  {{ errors['connections'] }}
+                </div>
+            }
+        </div>
+
+        <button class="ui primary button" type="submit" [disabled]="departureForm.invalid || isLoading">
+            Abfahrten anzeigen
+        </button>
+    </form>
+
+    <div class="ui divider"></div>
+
+    @if (departures.length > 0) {
+    <div class="ui segment">
+        <h2 class="ui header">Nächste Abfahrten</h2>
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Route</th>
+                    <th>Abfahrtszeit</th>
+                    <th>Ziel</th>
+                    <th>Verspätung</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (departure of departures; track departure.departureTime) {
+                <tr>
+                    <td>
+                        <div class="ui label blue">{{ departure.routeName }}</div>
+                    </td>
+                    <td>
+                        <strong>{{ departure.departureTime }}</strong>
+                        @if (departure.delayInMinutes > 0) {
+                        <span style="color: red;">
+                            ({{ formatTimeWithDelay(departure.departureTime, departure.delayInMinutes) }})
+                        </span>
+                        }
+                    </td>
+                    <td>{{ departure.destination }}</td>
+                    <td>
+                        <i class="clock outline icon"></i>
+                        {{ departure.delayInMinutes > 0 ? '+' + departure.delayInMinutes + ' Min' : 'Pünktlich' }}
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+
+    @if (noDeparturesMessage) {
+    <div class="ui positive message">
+        <i class="info circle icon"></i>
+        <p>{{ noDeparturesMessage }}</p>
+    </div>
+    }
+
+    @if (errorMessage) {
+    <div class="ui negative message">
+        <div class="header">Fehler</div>
+        <p>{{ errorMessage }}</p>
+    </div>
+    }
+
+    @if (isLoading) {
+    <div class="ui active inline loader"></div>
+    }
+</div>

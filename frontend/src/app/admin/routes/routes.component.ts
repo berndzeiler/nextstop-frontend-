@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { RoutesService } from '../../services/routes.service';
-import { Route, DailyValidityTranslations } from '../../models/route';
+import { Route, DailyValidityTranslations } from '../../models/route.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { forkJoin, map } from 'rxjs';
-import { RouteStopsDetails } from '../../models/routeconnectstop';
+import { RouteStopsDetails } from '../../models/routeconnectstop.model';
 
 @Component({
   selector: 'wea5-routes',

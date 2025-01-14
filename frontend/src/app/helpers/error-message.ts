@@ -7,7 +7,9 @@ export class ErrorMessage {
 }
 
 export const HolidayFormErrorMessages = [
-    new ErrorMessage('name', 'required', 'Bezeichnung darf nicht leer sein.')
+    new ErrorMessage('name', 'required', 'Bezeichnung darf nicht leer sein.'),
+    new ErrorMessage('startDate', 'required', 'Das Startdatum ist erforderlich.'),
+    new ErrorMessage('endDate', 'required', 'Das Enddatum ist erforderlich.'),
 ];
 
 export const StopFormErrorMessages = [
@@ -22,8 +24,21 @@ export const StopFormErrorMessages = [
 ];
 
 export const RouteFormErrorMessages = [
-    new ErrorMessage('validFrom', 'required', 'Das Startdatum ist erforderlich.'),
-    new ErrorMessage('validUntil', 'required', 'Das Enddatum ist erforderlich.'),
-    new ErrorMessage('dailyValidity', 'required', 'Die Tagesgültigkeit ist erforderlich.'),
-    new ErrorMessage('stops', 'duplicateStop', 'This stop has already been added to the route.'),
-  ];
+    new ErrorMessage('startDate', 'required', 'Das Startdatum ist erforderlich.'),
+    new ErrorMessage('endDate', 'required', 'Das Enddatum ist erforderlich.'),
+    new ErrorMessage('dailyValidity', 'required', 'Die Tagesgültigkeit ist erforderlich.')
+];
+
+export const TripPlannerFormErrorMessages = [
+    new ErrorMessage('date', 'required', 'Das Datum ist erforderlich.'),           
+    new ErrorMessage('time', 'required', 'Die Uhrzeit ist erforderlich.'), 
+    new ErrorMessage('connections', 'required', 'Die Anzahl der Verbindungen ist erforderlich.'),
+    new ErrorMessage('connections', 'min', 'Die Anzahl der Verbindungen muss mindestens 1 betragen.'),
+];
+
+export const DepartureFormErrorMessages = [
+    new ErrorMessage('date', 'required', 'Das Datum ist erforderlich.'),
+    new ErrorMessage('time', 'required', 'Die Uhrzeit ist erforderlich.'),
+    new ErrorMessage('connections', 'required', 'Die Anzahl der Verbindungen ist erforderlich.'),
+    new ErrorMessage('connections', 'min', 'Die Anzahl der Verbindungen muss mindestens 1 betragen.'),
+];  

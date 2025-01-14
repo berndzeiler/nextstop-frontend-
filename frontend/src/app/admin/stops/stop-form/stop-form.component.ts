@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { StopsService } from '../../../services/stops.service';
-import { Stop } from '../../../models/stop';
+import { Stop } from '../../../models/stop.model';
 import { CommonModule } from '@angular/common';
 import { StopFormErrorMessages } from '../../../helpers/error-message';
 import { floatValidator } from '../../../helpers/validators/float-validator.directive';

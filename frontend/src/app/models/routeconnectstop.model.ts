@@ -1,5 +1,5 @@
-import { Stop } from './stop';
-import { DailyValidity } from './route';
+import { Stop } from './stop.model';
+import { DailyValidity } from './route.model';
 
 export interface RouteConnectStop extends Stop {
     routeNumber?: number; 

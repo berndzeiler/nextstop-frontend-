@@ -3,9 +3,9 @@
     <form class="ui form" [formGroup]="stopForm" (ngSubmit)="saveStop()">
       <div class="field">
         <label>Bezeichnung</label>
-        <input name="name" formControlName="name" placeholder="Bezeichnung" required />
+        <input name="name" formControlName="name" placeholder="Bezeichnung" />
         @if (errors['name']) {
-            <div class="ui negative message">
+            <div class="ui pointing red basic label">
                 {{ errors['name'] }}
             </div>
         }
@@ -13,9 +13,9 @@
   
       <div class="field">
         <label>Kurzbezeichnung</label>
-        <input name="shortName" formControlName="shortName" placeholder="Kurzbezeichnung" required [disabled]="stopForm.get('shortName')?.disabled ?? false" />
+        <input name="shortName" formControlName="shortName" placeholder="Kurzbezeichnung" [disabled]="stopForm.get('shortName')?.disabled ?? false" />
         @if (errors['shortName']) {
-            <div class="ui negative message">
+            <div class="ui pointing red basic label">
                 {{ errors['shortName'] }}
             </div>
         }
@@ -23,9 +23,9 @@
   
       <div class="field">
         <label>Breitengrad</label>
-        <input name="latitude" formControlName="latitude" type="text" placeholder="Breitengrad" required />
+        <input name="latitude" formControlName="latitude" type="text" placeholder="Breitengrad" />
         @if (errors['latitude']) {
-            <div class="ui negative message">
+            <div class="ui pointing red basic label">
                 {{ errors['latitude'] }}
             </div>
         }
@@ -33,9 +33,9 @@
   
       <div class="field">
         <label>Längengrad</label>
-        <input name="longitude" formControlName="longitude" type="text" placeholder="Längengrad" required />
+        <input name="longitude" formControlName="longitude" type="text" placeholder="Längengrad" />
         @if (errors['longitude']) {
-            <div class="ui negative message">
+            <div class="ui pointing red basic label">
                 {{ errors['longitude'] }}
             </div>
         }

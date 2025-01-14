@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StopsService } from '../../services/stops.service';
-import { Stop } from '../../models/stop';
+import { Stop } from '../../models/stop.model';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
