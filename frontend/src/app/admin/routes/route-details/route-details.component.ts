@@ -4,17 +4,18 @@ import { RoutesService } from '../../../services/routes.service';
 import { Route, DailyValidityTranslations } from '../../../models/route.model';
 import { RouteStopsDetails } from '../../../models/route-connect-stop.model';
 import { CommonModule } from '@angular/common';
-import { forkJoin } from 'rxjs';
+import { forkJoin, map } from 'rxjs';
+import { StopsService } from '../../../services/stops.service';
 
 @Component({
   selector: 'wea5-route-details',
   standalone: true,
   imports: [
     CommonModule,
-    RouterLink
+    RouterLink,
   ],
   templateUrl: './route-details.component.html',
-  styles: []
+  styles: ``
 })
 export class RouteDetailsComponent implements OnInit {
   routeNumber: number | null = null;
@@ -23,8 +24,9 @@ export class RouteDetailsComponent implements OnInit {
 
   constructor(
     private routesService: RoutesService,
+    private stopsService: StopsService,
     private routeParam: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const routeNumber = this.routeParam.snapshot.paramMap.get('routeNumber');
@@ -47,7 +49,25 @@ export class RouteDetailsComponent implements OnInit {
             validUntil: routeInfo.validUntil,
             dailyValidity: routeInfo.dailyValidity,
           };
-          this.routeStopsDetails = routeStops;
+
+          // Fetch full names for all stops
+          forkJoin(
+            routeStops.stops.map((stop) =>
+              this.stopsService.getStopByShortName(stop.shortName).pipe(
+                map((fullStop) => ({
+                  ...stop,
+                  name: fullStop.name,
+                  longitude: fullStop.longitude,
+                  latitude: fullStop.latitude
+                }))
+              )
+            )
+          ).subscribe((enrichedStops) => {
+            this.routeStopsDetails = {
+              ...routeStops,
+              stops: enrichedStops,
+            };
+          });
         },
         error: (err) => console.error('Error loading route details:', err),
       });

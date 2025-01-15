@@ -2,23 +2,50 @@
     <h2 class="ui header">Route {{ route?.routeNumber }}</h2>
 
     @if (route != null) {
-        <p>
-            <strong>Gültig von:</strong> {{ route.validFrom | date: 'dd.MM.yyyy' }} - {{ route.validUntil | date: 'dd.MM.yyyy' }}
-        </p>
-        <p>
-            <strong>Tagesgültigkeit:</strong> {{ getDailyValidityTranslation(route.dailyValidity) }}
-        </p>
+        <div class="ui segment">
+            <p>
+                <strong>Gültig von:</strong>
+                {{ route.validFrom | date: 'dd.MM.yyyy' }} - {{ route.validUntil | date: 'dd.MM.yyyy' }}
+            </p>
+            <p>
+                <strong>Tagesgültigkeit:</strong>
+                {{ getDailyValidityTranslation(route.dailyValidity) }}
+            </p>
+        </div>
 
-        <h3>Haltestellen</h3>
-        @if (routeStopsDetails && routeStopsDetails.stops && routeStopsDetails.stops.length > 0) {
-            <ul>
-                @for (stop of routeStopsDetails.stops; track stop.shortName) {
-                    <li>{{ formatTime(stop.departureTime) }} - {{ stop.shortName }}</li>
-                }
-            </ul>
-        } @else {
-            <p>Keine Haltestellen vorhanden.</p>
-        }  
+        <div class="ui segment">
+            <h3 class="ui header">Haltestellen</h3>
+            @if (routeStopsDetails?.stops?.length) {
+                <table class="ui celled table">
+                    <thead>
+                        <tr>
+                            <th>Abfahrtszeit</th>
+                            <th>Haltestelle</th>
+                            <th>Bezeichnung</th>
+                            <th>Breitengrad</th>
+                            <th>Längengrad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (stop of routeStopsDetails?.stops; track stop.shortName) {
+                        <tr>
+                            <td>
+                                <strong>{{ formatTime(stop.departureTime) }}</strong>
+                            </td>
+                            <td>
+                                <div class="ui label blue">{{ stop.shortName }}</div>
+                            </td>
+                            <td>{{ stop.name }}</td>
+                            <td>{{ stop.latitude.toFixed(6) }}</td>
+                            <td>{{ stop.longitude.toFixed(6) }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            } @else {
+                <p>Keine Haltestellen vorhanden.</p>
+            }
+        </div>
     }
 
     <button class="ui button" routerLink="/admin/routes">Zurück zur Übersicht</button>

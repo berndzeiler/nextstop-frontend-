@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray, FormsModule } from '@angular/forms';
 import { RoutesService } from '../../../services/routes.service';
-import { Route, DailyValidityTranslations, DailyValidity } from '../../../models/route.model';
+import { DailyValidityTranslations, DailyValidity } from '../../../models/route.model';
 import { RouteConnectStop, RouteConnectStopForCreation } from '../../../models/route-connect-stop.model';
 import { Stop } from '../../../models/stop.model';
 import { CommonModule } from '@angular/common';
