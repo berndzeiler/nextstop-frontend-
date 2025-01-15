@@ -41,59 +41,29 @@
 
     <div class="ui divider"></div>
 
-    <div class="ui container">
-        @if (statistics.length > 0) {
-        <h2 class="ui header">Statistiken</h2>
+    @if (statistics.length > 0) {
+    <h2 class="ui header">Diagramm: Verspätungsstatistik</h2>
+    <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="'bar'"> </canvas>
+    }
 
-        <div class="ui segment">
-            <table class="ui celled table">
-                <thead>
-                    <tr>
-                        <th>Route</th>
-                        <th>Durchschnittliche Verspätung</th>
-                        <th>Pünktlich</th>
-                        <th>Leicht verspätet</th>
-                        <th>Verspätet</th>
-                        <th>Deutlich verspätet</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (stat of statistics; track stat.routeName) {
-                    <tr>
-                        <td>
-                            <div class="ui label blue">{{ stat.routeName }}</div>
-                        </td>
-                        <td>{{ stat.averageDelayInSeconds | number: '1.0-0' }} Sekunden</td>
-                        <td>{{ (stat.punctualPercentage / 100) | percent: '1.2-2' }}</td>
-                        <td>{{ (stat.slightlyDelayedPercentage / 100) | percent: '1.2-2' }}</td>
-                        <td>{{ (stat.delayedPercentage / 100) | percent: '1.2-2' }}</td>
-                        <td>{{ (stat.severelyDelayedPercentage / 100) | percent: '1.2-2' }}</td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
+    @if (noRoutesFoundMessage) {
+    <div class="ui positive message">
+        <i class="info circle icon"></i>
+        <div class="content">
+            <div class="header">Hinweis</div>
+            <p>{{ noRoutesFoundMessage }}</p>
         </div>
-        }
-
-        @if (noRoutesFoundMessage) {
-            <div class="ui positive message">
-                <i class="info circle icon"></i>
-                <div class="content">
-                    <div class="header">Hinweis</div>
-                    <p>{{ noRoutesFoundMessage }}</p>
-                </div>
-            </div>
-        }
-
-        @if (errorMessage) {
-        <div class="ui negative message">
-            <div class="header">Fehler</div>
-            <p>{{ errorMessage }}</p>
-        </div>
-        }
-
-        @if (isLoading) {
-        <div class="ui active inline loader"></div>
-        }
     </div>
+    }
+
+    @if (errorMessage) {
+    <div class="ui negative message">
+        <div class="header">Fehler</div>
+        <p>{{ errorMessage }}</p>
+    </div>
+    }
+
+    @if (isLoading) {
+    <div class="ui active inline loader"></div>
+    }
 </div>

@@ -7,13 +7,16 @@ import { RoutesService } from '../services/routes.service';
 import { Route } from '../models/route.model';
 import { CommonModule } from '@angular/common';
 import { dateRangeValidator } from '../helpers/validators/date-range-validator.directive';
+import { chartData, chartOptions } from '../helpers/chart-config/chart-config';
+import { BaseChartDirective } from 'ng2-charts';
 
 @Component({
   selector: 'wea5-delay-statistics',
   standalone: true,
   imports: [
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,
+    BaseChartDirective
   ],
   templateUrl: './delay-statistics.component.html',
   styles: ``
@@ -26,6 +29,10 @@ export class DelayStatisticsComponent implements OnInit {
   noRoutesFoundMessage: string | null = null;
   isLoading = false;
   errorMessage: string | null = null;
+
+  // Chart configuration
+  public chartData = { ...chartData };
+  public chartOptions = { ...chartOptions };
 
   constructor(
     private fb: FormBuilder,
@@ -71,6 +78,7 @@ export class DelayStatisticsComponent implements OnInit {
     this.statisticsService.getDelayStatistics(startDate, endDate, routeNumber).subscribe({
       next: (stats) => {
         this.statistics = stats;
+        this.updateChartData();
         this.isLoading = false;
       },
       error: (err) => {
@@ -82,6 +90,14 @@ export class DelayStatisticsComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  updateChartData(): void {
+    this.chartData.labels = this.statistics.map((stat) => stat.routeName);
+    this.chartData.datasets[0].data = this.statistics.map((stat) => stat.punctualPercentage);
+    this.chartData.datasets[1].data = this.statistics.map((stat) => stat.slightlyDelayedPercentage);
+    this.chartData.datasets[2].data = this.statistics.map((stat) => stat.delayedPercentage);
+    this.chartData.datasets[3].data = this.statistics.map((stat) => stat.severelyDelayedPercentage);
   }
 
   updateErrorMessages(): void {
