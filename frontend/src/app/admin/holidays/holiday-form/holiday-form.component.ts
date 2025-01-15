@@ -54,7 +54,10 @@ export class HolidayFormComponent implements OnInit {
       this.holidayId = +holidayId;
       this.holidaysService.getHolidayById(this.holidayId).subscribe({
         next: (holiday) => this.holidayForm.patchValue(holiday),
-        error: (err) => console.error('Error loading holiday:', err)
+        error: (err) => {
+          console.error('Error loading holiday:', err);
+          this.router.navigate(['/admin/holidays']); // Redirect to the holiday list on error
+        }
       });
     }
   }

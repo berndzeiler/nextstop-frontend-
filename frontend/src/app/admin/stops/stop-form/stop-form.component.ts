@@ -59,7 +59,10 @@ export class StopFormComponent implements OnInit {
       this.stopForm.get('shortName')?.disable(); // Disable shortName-field if it is an Update
       this.stopsService.getStopByShortName(shortName).subscribe({
         next: (stop) => this.stopForm.patchValue(stop),
-        error: (err) => console.error('Error loading stop:', err),
+        error: (err) => {
+          console.error('Error loading stop:', err);
+          this.router.navigate(['/admin/stops']); // Redirect to the stop list on error
+        }
       });
     } else {
       // Automatically convert `shortName` to uppercase on changes with debounce
