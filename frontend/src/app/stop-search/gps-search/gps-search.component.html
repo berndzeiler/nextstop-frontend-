@@ -1,0 +1,65 @@
+<div class="ui container">
+    <h2 class="ui header">Haltestellen in der Nähe</h2>
+
+    @if (currentLatitude !== null && currentLongitude !== null) {
+    <div class="ui message">
+        <strong>Aktueller Standort:</strong>
+        Breite: {{ currentLatitude.toFixed(6) }}, Länge: {{ currentLongitude.toFixed(6) }}
+    </div>
+    }
+
+    @if (errorMessage) {
+    <div class="ui negative message">
+        <div class="header">Fehler</div>
+        <p>{{ errorMessage }}</p>
+    </div>
+    }
+
+    <form class="ui form" [formGroup]="gpsForm" (ngSubmit)="searchNearbyStops()">
+        <div class="field">
+            <label>Maximale Entfernung (km)</label>
+            <input type="number" formControlName="maxDistanceInKm" min="1" max="100" />
+            @if (errors['maxDistanceInKm']) {
+            <div class="ui pointing red basic label">
+                {{ errors['maxDistanceInKm'] }}
+            </div>
+            }
+        </div>
+        <div class="field">
+            <label>Maximale Ergebnisse</label>
+            <input type="number" formControlName="maxResults" min="1" max="50" />
+            @if (errors['maxResults']) {
+            <div class="ui pointing red basic label">
+                {{ errors['maxResults'] }}
+            </div>
+            }
+        </div>
+        <div class="field">
+            <button class="ui primary button" type="submit" [disabled]="gpsForm.invalid || isLoading">
+                Haltestellen suchen
+            </button>
+        </div>
+    </form>
+
+    @if (isLoading) {
+    <div class="ui active inline loader"></div>
+    }
+
+    @if (foundStops.length > 0) {
+    <div class="ui segment">
+        <h3 class="ui header">Gefundene Haltestellen</h3>
+        @for (stop of foundStops; track stop.shortName) {
+        <div (click)="selectStop(stop)" class="ui message" style="cursor: pointer;">
+            <strong>{{ stop.name }} ({{ stop.shortName }})</strong><br />
+            Breite: {{ stop.latitude.toFixed(6) }}, Länge: {{ stop.longitude.toFixed(6) }}
+        </div>
+        }
+    </div>
+    }
+
+    @if (foundStops.length === 0 && !isLoading && !errorMessage) {
+    <div class="ui message">
+        Keine Haltestellen gefunden.
+    </div>
+    }
+</div>

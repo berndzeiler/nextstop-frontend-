@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { TripPlannerService } from '../services/trip-planner.service';
@@ -8,6 +8,7 @@ import { TripPlannerFormErrorMessages } from '../helpers/error-message';
 import { Stop } from '../models/stop.model';
 import { SelectedStopDisplayComponent } from '../stop-search/selected-stop-display/selected-stop-display.component';
 import { uniqueStopsValidator } from '../helpers/validators/unique-stops-validator.directive';
+import { GpsModalComponent } from '../stop-search/gps-search/gps-modal/gps-modal.component';
 
 @Component({
   selector: 'wea5-trip-planner',
@@ -16,7 +17,8 @@ import { uniqueStopsValidator } from '../helpers/validators/unique-stops-validat
     CommonModule,
     ReactiveFormsModule,
     StopSearchComponent,
-    SelectedStopDisplayComponent
+    SelectedStopDisplayComponent,
+    GpsModalComponent
   ],
   templateUrl: './trip-planner.component.html',
 })
@@ -29,6 +31,9 @@ export class TripPlannerComponent implements OnInit {
   errors: { [key: string]: string } = {};
   selectedStartStop: Stop | null = null;
   selectedEndStop: Stop | null = null;
+
+  @ViewChild('startGpsModal') startGpsModal!: GpsModalComponent;
+  @ViewChild('endGpsModal') endGpsModal!: GpsModalComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -63,6 +68,16 @@ export class TripPlannerComponent implements OnInit {
     }
 
     this.updateErrorMessages();
+  }
+
+  onGpsStopSelected(controlName: string, stop: Stop): void {
+    this.onStopSelected(controlName, stop);
+
+    if (controlName === 'startStop') {
+      this.startGpsModal.closeModal();
+    } else if (controlName === 'endStop') {
+      this.endGpsModal.closeModal();
+    }
   }
 
   searchSchedules() {

@@ -1,0 +1,9 @@
+<div class="ui modal" [ngClass]="{ active: isOpen, visible: isOpen }">
+    <div class="header">Standortbasierte Suche</div>
+    <div class="content">
+      <wea5-gps-search (stopSelected)="onStopSelected($event)"></wea5-gps-search>
+    </div>
+    <div class="actions">
+      <button type="button" class="ui button" (click)="closeModal()">Abbrechen</button>
+    </div>
+  </div>

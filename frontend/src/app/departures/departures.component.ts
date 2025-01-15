@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { DepartureService } from '../services/departure.service';
@@ -7,6 +7,7 @@ import { StopSearchComponent } from '../stop-search/stop-search.component';
 import { SelectedStopDisplayComponent } from '../stop-search/selected-stop-display/selected-stop-display.component';
 import { Stop } from '../models/stop.model';
 import { DepartureFormErrorMessages } from '../helpers/error-message';
+import { GpsModalComponent } from '../stop-search/gps-search/gps-modal/gps-modal.component';
 
 @Component({
   selector: 'wea5-departures',
@@ -15,7 +16,8 @@ import { DepartureFormErrorMessages } from '../helpers/error-message';
     CommonModule,
     ReactiveFormsModule,
     StopSearchComponent,
-    SelectedStopDisplayComponent
+    SelectedStopDisplayComponent,
+    GpsModalComponent
   ],
   templateUrl: './departures.component.html',
 })
@@ -27,6 +29,8 @@ export class DeparturesComponent implements OnInit {
   isLoading = false;
   selectedStop: Stop | null = null;
   errors: { [key: string]: string } = {};
+
+  @ViewChild('gpsModal') gpsModal!: GpsModalComponent;
 
   constructor(
     private fb: FormBuilder,
@@ -48,6 +52,7 @@ export class DeparturesComponent implements OnInit {
   }
 
   onStopSelected(stop: Stop) {
+    // Triggered by the normal search field
     this.departureForm.get('stopShortName')?.setValue(stop.shortName);
     this.selectedStop = stop;
   }

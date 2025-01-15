@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { Stop } from '../models/stop.model';
@@ -35,6 +35,22 @@ export class StopsService {
 
    searchStops(searchTerm?: string): Observable<Stop[]> {
     return this.http.get<Stop[]>(`${environment.server}/stops/search?searchTerm=${searchTerm}`)
+      .pipe(catchError(this.errorHandler));
+  }
+
+  findNearbyStops(
+    latitude: number, 
+    longitude: number, 
+    maxDistanceInKm: number = 10, 
+    maxResults: number = 10
+  ): Observable<Stop[]> {
+    const params = new HttpParams()
+      .set('latitude', latitude.toString())
+      .set('longitude', longitude.toString())
+      .set('maxDistanceInKm', maxDistanceInKm.toString())
+      .set('maxResults', maxResults.toString());
+  
+    return this.http.get<Stop[]>(`${environment.server}/stops/nearby`, { params })
       .pipe(catchError(this.errorHandler));
   }
 

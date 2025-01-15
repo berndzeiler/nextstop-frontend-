@@ -6,7 +6,10 @@
             <label>Haltestelle</label>
             <wea5-stop-search (stopSelected)="onStopSelected($event)" />
             <wea5-selected-stop-display [selectedStop]="selectedStop" />
+            <button type="button" class="ui button" (click)="gpsModal.openModal()">Standortbasierte Suche</button>
         </div>
+
+        <wea5-gps-modal #gpsModal (stopSelected)="onStopSelected($event)" />
 
         <div class="two fields">
             <div class="field">

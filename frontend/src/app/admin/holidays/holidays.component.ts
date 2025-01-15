@@ -27,7 +27,17 @@ export class HolidaysComponent implements OnInit {
 
   loadHolidays(): void {
     this.holidaysService.getHolidays().subscribe({
-      next: (data) => (this.holidays = data),
+      next: (data) => {
+        this.holidays = data.sort((a, b) => {
+          // Primary sort by startDate
+          const startDateComparison = new Date(a.startDate).getTime() - new Date(b.startDate).getTime();
+          if (startDateComparison !== 0) {
+            return startDateComparison;
+          }
+          // Secondary sort by name
+          return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' });
+        });
+      },
       error: (err) => console.error('Error loading holidays:', err),
     });
   }

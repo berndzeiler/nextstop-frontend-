@@ -43,6 +43,12 @@
 
     @if (statistics.length > 0) {
     <h2 class="ui header">Diagramm: Verspätungsstatistik</h2>
+    <p class="ui info message">
+        <strong>Auswertungszeitraum:</strong> 
+        {{ statisticsForm.value.startDate | date: 'dd.MM.yyyy' }} 
+        bis 
+        {{ statisticsForm.value.endDate | date: 'dd.MM.yyyy' }}
+    </p>
     <canvas baseChart [data]="chartData" [options]="chartOptions" [type]="'bar'"> </canvas>
     }
 

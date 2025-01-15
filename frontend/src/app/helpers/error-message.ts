@@ -47,3 +47,12 @@ export const DelayStatisticsFormErrorMessages = [
     new ErrorMessage('startDate', 'required', 'Das Startdatum ist erforderlich.'),
     new ErrorMessage('endDate', 'required', 'Das Enddatum ist erforderlich.'),
 ];
+
+export const GpsSearchFormErrorMessages = [
+    new ErrorMessage('maxDistanceInKm', 'required', 'Die maximale Entfernung ist erforderlich.'),
+    new ErrorMessage('maxDistanceInKm', 'min', 'Die maximale Entfernung muss mindestens 1 km betragen.'),
+    new ErrorMessage('maxDistanceInKm', 'max', 'Die maximale Entfernung darf höchstens 100 km betragen.'),
+    new ErrorMessage('maxResults', 'required', 'Die maximale Anzahl der Ergebnisse ist erforderlich.'),
+    new ErrorMessage('maxResults', 'min', 'Die maximale Anzahl der Ergebnisse muss mindestens 1 betragen.'),
+    new ErrorMessage('maxResults', 'max', 'Die maximale Anzahl der Ergebnisse darf höchstens 50 betragen.')
+];

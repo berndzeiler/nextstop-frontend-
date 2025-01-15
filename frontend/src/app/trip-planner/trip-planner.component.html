@@ -6,18 +6,24 @@
             <label>Start-Haltestelle</label>
             <wea5-stop-search (stopSelected)="onStopSelected('startStop', $event)" />
             <wea5-selected-stop-display [selectedStop]="selectedStartStop" />
+            <button type="button" class="ui button" (click)="startGpsModal.openModal()">Standortbasierte Suche</button>
         </div>
+
+        <wea5-gps-modal #startGpsModal (stopSelected)="onGpsStopSelected('startStop', $event)" />
 
         <div class="field">
             <label>Ziel-Haltestelle</label>
             <wea5-stop-search (stopSelected)="onStopSelected('endStop', $event)" />
             <wea5-selected-stop-display [selectedStop]="selectedEndStop" />
+            <button type="button" class="ui button" (click)="endGpsModal.openModal()">Standortbasierte Suche</button>
             @if (errors['endStop']) {
                 <div class="ui pointing red basic label">
                   {{ errors['endStop'] }}
                 </div>
             }
         </div>
+
+        <wea5-gps-modal #endGpsModal (stopSelected)="onGpsStopSelected('endStop', $event)" />
 
         <div class="two fields">
             <div class="field">
