@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { StopsService } from './stops.service';
 
-describe('StopService', () => {
+describe('StopsService', () => {
   let service: StopsService;
 
   beforeEach(() => {

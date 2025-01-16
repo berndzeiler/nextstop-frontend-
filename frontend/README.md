@@ -2,13 +2,23 @@
 
 ## Inhaltsverzeichnis
 
-TODO
+- [Architektur](#architektur)
+  - [Komponentenbaum-Diagramm](#komponentenbaum-diagramm)
+  - [Wichtige Komponenten](#wichtige-komponenten)
+  - [Zusammenhang Services mit Komponenten](#zusammenhang-services-mit-komponenten)
+  - [Models](#models)
+  - [Helpers](#helpers)
+- [Navigationswege](#navigationswege)
+- [Testlauf](#testlauf)
+- [Fragen beantworten](#fragen-beantworten)
+- [Setup](#setup)
+- [Externe Teile](#externe-teile)
 
 ## Architektur
 
 ### Komponentenbaum-Diagramm
 
-![component-diagramm](Komponentenbaumdiagramm.png)
+![component-diagramm](./public/Komponentenbaumdiagramm.png)
 
 ### Wichtige Komponenten
 
@@ -115,3 +125,23 @@ Direktiven wie z.B. die `DateRangeValidatorDirective` validieren Benutzereingabe
 #### ErrorMessages
 
 Bündelt alle spezifischen Fehlermeldungen für Formulare wie `HolidayForm`, `StopForm`, und `RouteForm`, um konsistente und benutzerfreundliche Validierungsnachrichten anzuzeigen.
+
+## Navigationswege
+
+![navigation-diagram](./public/Routendiagramm.png)
+
+## Testlauf
+
+TODO
+
+## Fragen beantworten
+
+TODO
+
+## Setup
+
+TODO
+
+## Externe Teile
+
+TODO

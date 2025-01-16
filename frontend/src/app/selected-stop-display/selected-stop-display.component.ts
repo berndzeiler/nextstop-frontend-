@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Stop } from '../../models/stop.model';
+import { Stop } from '../models/stop.model';
 
 @Component({
   selector: 'wea5-selected-stop-display',

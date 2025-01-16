@@ -12,7 +12,7 @@ import { HolidayFormComponent } from './admin/holidays/holiday-form/holiday-form
 import { StopFormComponent } from './admin/stops/stop-form/stop-form.component';
 import { RouteFormComponent } from './admin/routes/route-form/route-form.component';
 import { RouteDetailsComponent } from './admin/routes/route-details/route-details.component';
-import { GpsSearchComponent } from './stop-search/gps-search/gps-search.component';
+import { GpsSearchComponent } from './gps-modal/gps-search/gps-search.component';
 
 export const routes: Routes = [
     {
@@ -36,10 +36,6 @@ export const routes: Routes = [
     {
         path: 'delay-statistics',
         component: DelayStatisticsComponent
-    },
-    {
-        path: 'departures',
-        component: GpsSearchComponent
     },
     { 
         path: 'login',  

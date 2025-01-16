@@ -6,9 +6,9 @@ import { StopSearchComponent } from '../stop-search/stop-search.component';
 import { Schedule } from '../models/schedule.model';
 import { TripPlannerFormErrorMessages } from '../helpers/error-message';
 import { Stop } from '../models/stop.model';
-import { SelectedStopDisplayComponent } from '../stop-search/selected-stop-display/selected-stop-display.component';
+import { SelectedStopDisplayComponent } from '../selected-stop-display/selected-stop-display.component';
 import { uniqueStopsValidator } from '../helpers/validators/unique-stops-validator.directive';
-import { GpsModalComponent } from '../stop-search/gps-search/gps-modal/gps-modal.component';
+import { GpsModalComponent } from '../gps-modal/gps-modal.component';
 
 @Component({
   selector: 'wea5-trip-planner',

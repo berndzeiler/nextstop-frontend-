@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { RouteFormErrorMessages } from '../../../helpers/error-message';
 import { StopSearchComponent } from '../../../stop-search/stop-search.component';
 import { dateRangeValidator } from '../../../helpers/validators/date-range-validator.directive';
-import { SelectedStopDisplayComponent } from '../../../stop-search/selected-stop-display/selected-stop-display.component';
+import { SelectedStopDisplayComponent } from '../../../selected-stop-display/selected-stop-display.component';
 
 @Component({
   selector: 'wea5-holiday-form',

@@ -4,10 +4,10 @@ import { CommonModule } from '@angular/common';
 import { DepartureService } from '../services/departure.service';
 import { Departure } from '../models/departure.model';
 import { StopSearchComponent } from '../stop-search/stop-search.component';
-import { SelectedStopDisplayComponent } from '../stop-search/selected-stop-display/selected-stop-display.component';
+import { SelectedStopDisplayComponent } from '../selected-stop-display/selected-stop-display.component';
 import { Stop } from '../models/stop.model';
 import { DepartureFormErrorMessages } from '../helpers/error-message';
-import { GpsModalComponent } from '../stop-search/gps-search/gps-modal/gps-modal.component';
+import { GpsModalComponent } from '../gps-modal/gps-modal.component';
 
 @Component({
   selector: 'wea5-departures',

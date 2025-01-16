@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { Stop } from '../../../models/stop.model';
+import { Stop } from '../models/stop.model';
 import { NgClass } from '@angular/common';
-import { GpsSearchComponent } from '../gps-search.component';
+import { GpsSearchComponent } from './gps-search/gps-search.component';
 
 @Component({
   selector: 'wea5-gps-modal',
