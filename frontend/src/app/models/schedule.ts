@@ -4,7 +4,8 @@ export interface Schedule {
     routeName: string;          
     departureTime: string;     
     arrivalTime: string;        
-    delayInMinutes: number;    
+    delayInMinutesStartStop: number;    
+    delayInMinutesEndStop: number; 
     isDirectConnection: boolean; 
 }
   

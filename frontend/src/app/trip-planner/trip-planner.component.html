@@ -92,18 +92,18 @@
                         </td>
                         <td>
                             <strong>{{ formatTime(schedule.departureTime) }}</strong>
-                            @if (schedule.delayInMinutes > 0) {
+                            @if (schedule.delayInMinutesStartStop > 0) {
                                 <span style="color: red;">
-                                    ({{ formatTimeWithDelay(schedule.departureTime, schedule.delayInMinutes) }})
+                                    ({{ formatTimeWithDelay(schedule.departureTime, schedule.delayInMinutesStartStop) }})
                                 </span>
                             }
                             <div class="sub header">{{ selectedStartStop?.name || schedule.startStopShortName }}</div>
                         </td>
                         <td>
                             <strong>{{ formatTime(schedule.arrivalTime) }}</strong>
-                            @if (schedule.delayInMinutes > 0) {
+                            @if (schedule.delayInMinutesEndStop > 0) {
                                 <span style="color: red;">
-                                    ({{ formatTimeWithDelay(schedule.arrivalTime, schedule.delayInMinutes) }})
+                                    ({{ formatTimeWithDelay(schedule.arrivalTime, schedule.delayInMinutesEndStop) }})
                                 </span>
                             }
                             <div class="sub header">{{ selectedEndStop?.name || schedule.endStopShortName }}</div>
@@ -114,7 +114,7 @@
                         </td>
                         <td>
                             <i class="clock outline icon"></i>
-                            {{ schedule.delayInMinutes > 0 ? '+' + schedule.delayInMinutes + ' Min' : 'Pünktlich' }}
+                            {{ schedule.delayInMinutesEndStop > 0 ? '+' + schedule.delayInMinutesEndStop + ' Min' : 'Pünktlich' }}
                         </td>
                     </tr>
                     }

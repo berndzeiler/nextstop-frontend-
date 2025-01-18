@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { TripPlannerService } from '../services/trip-planner.service';
 import { StopSearchComponent } from '../stop-search/stop-search.component';
-import { Schedule } from '../models/schedule.model';
+import { Schedule } from '../models/schedule';
 import { TripPlannerFormErrorMessages } from '../helpers/error-message';
 import { Stop } from '../models/stop.model';
 import { SelectedStopDisplayComponent } from '../selected-stop-display/selected-stop-display.component';
@@ -96,7 +96,11 @@ export class TripPlannerComponent implements OnInit {
     this.tripPlannerService.getSchedules(startStop, endStop, dateTime, connections, isArrival)
       .subscribe({
         next: (schedules) => {
-          this.schedules = schedules;
+          this.schedules = schedules.map(schedule => ({
+            ...schedule,
+            delayInMinutesStartStop: schedule.delayInMinutesStartStop,
+            delayInMinutes: schedule.delayInMinutesEndStop
+          }));
           this.isLoading = false;
           this.noConnectionsMessage = null;
         },

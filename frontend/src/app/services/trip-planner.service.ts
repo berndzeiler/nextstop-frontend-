@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
-import { Schedule } from '../models/schedule.model';
+import { catchError, Observable } from 'rxjs';
+import { Schedule } from '../models/schedule';
+import { ErrorHandlerService } from './helper/error-handler.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TripPlannerService {
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService
+  ) { }
 
   getSchedules(
     startStop: string,
@@ -24,6 +28,7 @@ export class TripPlannerService {
       .set('connections', connections)
       .set('isArrival', isArrival.toString());
 
-    return this.http.get<Schedule[]>(`${environment.server}/schedule/connections`, { params });
+    return this.http.get<Schedule[]>(`${environment.server}/schedule/connections`, { params })
+      .pipe(catchError((error) => this.errorHandler.handle<Schedule[]>(error)));
   }
 }
