@@ -448,12 +448,46 @@ export function dateRangeValidator(): ValidatorFn {
 
 ### Was passiert, wenn Aufrufe an das Backend Fehler produzieren? 
 
+Ein möglicher Fehler wird jedes Mal über die Hilfs-Klasse [ErrorHandlerService](./src/app/services/helper/error-handler.service.ts) für die jeweiligen Services abgefangen und dem entsprechenden ErrorHandler übergeben. In den Komponenten werden dann bei Bedarf bestimmte ErrorCodes behandelt und eine entsprechende Nachricht angezeigt.
 
+Siehe ErrorHandlerService-Klasse:
+
+```ts
+import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ErrorHandlerService {
+  handle<T>(error: Error | any): Observable<T> {
+    console.error('Service error:', error);
+    return of(null as T);
+  }
+}
+
+```
 
 ## Setup
 
-TODO
+1. **Docker-Container starten:**  
+   - MySQL-Datenbank für die Speicherung.  
+   - *(Optional)* Container für Testdaten.  
+   - Keycloak-Service für die Authentifizierung.
+
+2. **Backend starten:**  
+   - `.NET REST API` als Schnittstelle zwischen Frontend und Backend.
+
+3. **Frontend starten:**  
+   - Angular (v18) als Benutzeroberfläche.  
 
 ## Externe Teile
 
-TODO
+1. **Fomantic-UI**  
+   - Wurde fast ausschließlich für das komplette Styling der Webseite verwendet.
+
+2. **Keycloak-Einbindung**  
+   - Integriert nach Anleitung aus dem eLearning.
+
+3. **`chart.js` und `ng2-charts`**  
+   - Genutzt für die Darstellung des Verspätungsdiagramms.
